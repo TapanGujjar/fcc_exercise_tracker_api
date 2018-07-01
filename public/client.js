@@ -26,7 +26,7 @@ $(document).ready(function(){
       alert(data.message);
     }
     else{
-      alert(data.message+". Your userId is "+data.userId);
+      alert(data.message);
     }
 
   }
@@ -50,7 +50,10 @@ $(document).ready(function(){
       // });
     }
 
-    $("#addLogBtn").click(function(e){
+    
+  });
+
+  $("#addLogBtn").click(function(e){
       e.preventDefault();
       console.log("Adding log");
       var userId=$("#userId").val();
@@ -87,6 +90,5 @@ $(document).ready(function(){
 
 
 
-  });
 
 });
