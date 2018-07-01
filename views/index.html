@@ -1,58 +1,76 @@
-<!-- This is a static file -->
-<!-- served from your routes in server.js -->
-
-<!-- You might want to try something fancier: -->
-<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
-<!-- pug: https://pugjs.org/ -->
-<!-- haml: http://haml.info/ -->
-<!-- hbs(handlebars): http://handlebarsjs.com/ -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Welcome to Glitch!</title>
-    <meta name="description" content="A cool thing made with Glitch">
-    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css">
+<head>
+  <title>Welcome to Glitch!</title>
+  <meta name="description" content="A cool thing made with Glitch">
+  <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Import Bootstrap cdn css-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  
+  <!-- import the webpage's stylesheet -->
+  <link rel="stylesheet" href="/style.css">
+  
+  
+</head>
+<body>
+  
+  <div class="container">
+    <h3 class="text-center">Freecodecamp Api Microservices Challenge Result</h3>
+    <h4 class="text-center"> Created by Tapan Gujjar </h4>
     
-    <!-- import the webpage's client-side javascript file -->
-    <script src="/client.js" defer></script>
-  </head>
-  <body>
-    <header>
-      <h1>
-        A Dream of the Future
-      </h1>
-    </header>
-
-    <main>
-      <p class="bold">Oh hi,</p>
+    <div class="row form-container">
       
-      <p>Tell me your hopes and dreams:</p>
-      
-      <form>
-        <input name="dream" type="text" maxlength="100" placeholder="Dreams!" aria-labelledby="submit-dream">
-        <button type="submit" id="submit-dream">Submit Dream</button>
-      </form>
-      
-      <section class="dreams">
-        <ul id="dreams"></ul>
-      </section>
-    </main>
+      <div class="col-md-5 trackerForm">
+        
+        <div class="usernameForm">
+          <form>
+            <h3 class="text-center">Add User</h3>
+            <h6 class="apiText text-center">POST /api/exercise/new-user</h6>
+            <input type="text" class="form-control form-elm" name="username" id="username" placeholder="Username: e.g. username"/>
+            
+            <button id="addUserBtn" class="form-control btn btn-primary form-elm">Add User</button>
+          </form>
+        </div>
+        
+      </div>
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-5 trackerForm">
+        <form>
+          <h3 class="text-center"> Add Exercise</h3>
+          <h6 class="apiText text-center">POST /api/exercise/add</h6>
+          <input type="text" class="form-control form-elm" name="usedId" id="userId" placeholder="UserId: "/>
+          <input type="text" class="form-control form-elm" name="description" id="description" placeholder="description: e.g.Body Building"/>
+          <input type="text" class="form-control form-elm" name="duration" id="duration" placeholder="duration in minutes: e.g.20"/>
+          <input type="text" class="form-control form-elm" name="date" id="date" placeholder="date in (yyyy-mm-dd): e.g.2018-10-10"/>
+          <button id="addLogBtn" class="form-control form-elm btn btn-primary">Add New Log</button> 
+        </form>
+      </div>
+    </div>
+    
+    <div class="text-center seeLog">
+      <h5 class="apiText">View Log<br> GET /api/exercise/log?userId=[userId]&from=[from{date}]&to=[to{date}]</h5>
+    </div>
+  </div>
+  
+  <!-- Bootstrap js cdb-->
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+  
+</body>
+<!-- import the webpage's client-side javascript file -->
+<script src="/networking.js"></script>
+<script src="/client.js" defer></script>
 
-    <footer>
-      Made with <a href="https://glitch.com">Glitch</a>!
-    </footer>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
-
-  </body>
 </html>

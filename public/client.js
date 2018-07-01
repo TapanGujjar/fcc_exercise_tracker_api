@@ -1,42 +1,92 @@
-// client-side js
-// run by the browser each time your view template is loaded
 
-console.log('hello world :o');
+$(document).ready(function(){
 
-// our default array of dreams
-const dreams = [
-  'Find and count some sheep',
-  'Climb a really tall mountain',
-  'Wash the dishes'
-];
 
-// define variables that reference elements on our page
-const dreamsList = document.getElementById('dreams');
-const dreamsForm = document.forms[0];
-const dreamInput = dreamsForm.elements['dream'];
+  function parseAddUserResponse(data){
+    console.log(JSON.stringify(data));
+    // data=JSON.parse(data);
+    var message="";
+    
+    if(data.success==-1){
+      alert(data.message);
+    }
+    else{
+      alert(data.message+". Your userId is "+data.userId);
+    }
 
-// a helper function that creates a list item for a given dream
-const appendNewDream = function(dream) {
-  const newListItem = document.createElement('li');
-  newListItem.innerHTML = dream;
-  dreamsList.appendChild(newListItem);
-}
+  }
 
-// iterate through every dream and add it to our page
-dreams.forEach( function(dream) {
-  appendNewDream(dream);
+  function parseAddLogResponse(data){
+
+    console.log(JSON.stringify(data));
+
+    var message="";
+    
+    if(data.success==-1){
+      alert(data.message);
+    }
+    else{
+      alert(data.message+". Your userId is "+data.userId);
+    }
+
+  }
+
+  $("#addUserBtn").click(function(e){
+    e.preventDefault();
+    var username=$("#username").val();
+    console.log("username="+username);
+    if(username==undefined || username==null || username==""){
+      
+      alert("Username should not be empty");
+
+    }
+    else{
+      var data={};
+      data.username=username;
+      sendData("http://localhost:8080/api/exercise/new-user",data, parseAddUserResponse);
+
+      // $.post("http://localhost:8080/api/exercise/new-user",data,function(data,status){
+      //   console.log("Data="+data);
+      // });
+    }
+
+    $("#addLogBtn").click(function(e){
+      e.preventDefault();
+      console.log("Adding log");
+      var userId=$("#userId").val();
+      var description=$("#description").val();
+      var date=$("#date").val();
+      var duration=$("#duration").val();
+
+      if(userId=="" || userId==undefined || description=="" || description==undefined ||
+      date=="" || date==undefined || duration=="" || duration==undefined){
+
+        alert("No value can be empty");
+      }
+
+      else{
+        
+        if(isNaN(new Date(date).getTime()) || isNaN(duration)){
+          alert("date or duration is not valid");
+        }
+        else{
+
+          var data={};
+          data.userId=userId;
+          data.description=description;
+          data.duration=duration;
+          data.date=date;
+
+          sendData("http://localhost:8080/api/exercise/add",data, parseAddLogResponse);
+          
+        }
+      }
+    
+      
+    });
+
+
+
+  });
+
 });
-
-// listen for the form to be submitted and add a new dream when it is
-dreamsForm.onsubmit = function(event) {
-  // stop our form submission from refreshing the page
-  event.preventDefault();
-
-  // get dream value and add it to the list
-  dreams.push(dreamInput.value);
-  appendNewDream(dreamInput.value);
-
-  // reset form 
-  dreamInput.value = '';
-  dreamInput.focus();
-};

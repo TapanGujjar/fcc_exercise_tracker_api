@@ -15,8 +15,8 @@ var trackerApi=require(__dirname+"/apis/trackerApi.js");
 var trackerModel=require(__dirname+'/models/trackerModel.js');
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
+app.use(express.static(__dirname + '/public'));
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
