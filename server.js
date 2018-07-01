@@ -1,22 +1,42 @@
-// server.js
-// where your node app starts
 
-// init project
+//Loading the project
+require('dotenv').config()
 var express = require('express');
 var app = express();
+var mongoClient=require("mongodb").MongoClient;
+var bodyParser = require('body-parser');
+var mongoose=require("mongoose");
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
-// http://expressjs.com/en/starter/static-files.html
+//Importing controllers
+var trackerApi=require(__dirname+"/apis/trackerApi.js");
+
+//Import Model
+var trackerModel=require(__dirname+'/models/trackerModel.js');
+
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+
+
+
+var mongoUrl='mongodb://'+process.env.DBUSER+':'+process.env.DBPASSWORD+'@ds032887.mlab.com:32887/fcc_usage';
+console.log("mongurl="+mongoUrl);
+// mongoClient.connect(mongoUrl,function(err,db){
+  
+  
+  // });
+  
+  mongoose.connect(mongoUrl,function(err,db){
+    if(err)
+      throw err;
+    
+    trackerApi(app,db,trackerModel);
+    var listener = app.listen(process.env.PORT, function () {
+      console.log('Your app is listening on port ' + listener.address().port);
+    });
+  });
